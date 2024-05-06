@@ -1,0 +1,38 @@
+
+<mat-form-field appearance="fill" class="mat-form-field">
+    <mat-label>Search Issues</mat-label>
+    <input
+      matInput
+      [formControl]="searchControl"
+      [matAutocomplete]="auto"
+      placeholder="Type to filter"
+    />
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+      <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  
+<table class="table table-hover table-striped">
+	<thead>
+		<tr>
+			<th>Id</th>
+        	<th>Title</th>
+			<th>Prject</th>
+            <th>Assignee</th>
+            <th>Staus</th>
+		</tr>
+	</thead>
+	<tbody>
+      <tr *ngFor="let issue of filteredIssues$ | async">
+        <td>{{issue.id}}</td>
+        
+        <td>{{issue.title}}</td>
+        <td>{{issue.project}}</td>
+        <td>{{issue.assignee}}</td>
+        <td>{{issue.status}}</td>
+      </tr>
+    
+	</tbody>
+</table>
